@@ -26,15 +26,14 @@ func NewDisposableMailAPI(api string) DisposableMailAPInterface {
 }
 
 func (d *DisposableMailAPI) CreateMail(mail, password string) (*models.Account, error) {
-	data := map[string]string{"address": mail + "@karenkey.com", "password": password}
 
-	jsonData, err := json.Marshal(data)
+	data, err := marshallData(mail, password)
 
 	if err != nil {
 		return nil, err
 	}
 
-	res, err := http.Post(d.api+"accounts", "application/json", bytes.NewBuffer(jsonData))
+	res, err := http.Post(d.api+"accounts", "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}
