@@ -13,6 +13,8 @@ import (
 
 type DisposableMailAPInterface interface {
 	CreateMail(mail, password string) (*models.Account, error)
+	GetMail(mail, password string) (*models.Mail, error)
+	getMailToken(mail, password string) (*models.Token, error)
 }
 
 type DisposableMailAPI struct {
@@ -55,5 +57,55 @@ func (d *DisposableMailAPI) CreateMail(mail, password string) (*models.Account, 
 	}
 
 	return account, nil
+}
 
+func (d *DisposableMailAPI) GetMail(mail, password string) (*models.Mail, error) {
+	return nil, nil
+}
+
+func (d *DisposableMailAPI) getMailToken(mail, password string) (*models.Token, error) {
+	data, err := marshallData(mail, password)
+
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := http.Post(d.api+"token`", "application/json", bytes.NewBuffer(data))
+
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if strings.Contains(string(body), "error") {
+		return nil, fmt.Errorf("Error: %s", string(body))
+	}
+
+	token := &models.Token{}
+
+	err = json.Unmarshal([]byte(body), &token)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return token, nil
+
+}
+
+func marshallData(mail, password string) ([]byte, error) {
+	data := map[string]string{"address": mail + "@karenkey.com", "password": password}
+
+	jsonData, err := json.Marshal(data)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonData, nil
 }

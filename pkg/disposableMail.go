@@ -34,3 +34,14 @@ func (d *DisposableMail) Generate(mail, password string) (*models.Account, error
 
 	return createdMail, nil
 }
+
+func (d *DisposableMail) Mail() (*models.Mail, error) {
+	email, err := d.api.GetMail(d.mail, d.password)
+
+	if err != nil {
+		return nil, err
+
+	}
+
+	return email, nil
+}
