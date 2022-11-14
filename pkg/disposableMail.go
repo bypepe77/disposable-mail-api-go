@@ -20,14 +20,14 @@ func (d *DisposableMail) Generate(mail, password string) (*models.Account, error
 	d.mail = mail
 
 	if mail == "" {
-		randomString := utils.GenerareRandomString(10)
+		randomString := utils.GenerareRandomString(12)
 		d.mail = randomString
 	}
 
 	d.password = password
 
 	if password == "" {
-		randomString := utils.GenerareRandomString(10)
+		randomString := utils.GenerareRandomString(12)
 		d.password = randomString
 	}
 

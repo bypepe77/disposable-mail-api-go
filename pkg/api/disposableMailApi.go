@@ -43,6 +43,14 @@ func (d *DisposableMailAPI) CreateMail(mail, password string) (*models.Account, 
 		return nil, err
 	}
 
+	token, err := d.getMailToken(mail, password)
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("token:", token)
+
 	if strings.Contains(string(body), "error") {
 		return nil, fmt.Errorf("Error: %s", string(body))
 	}
