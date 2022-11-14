@@ -3,11 +3,11 @@
     <span><strong>Disposable Mail Api</strong> It is a library to generate disposable mails completly functional and usable on internet.</span><br />
 </div>
 
-#Installation
+## Installation
 ```bash
 go get github.com/bypepe77/disposable-mail-api-go/
 ```
-#Basic Usage
+### Basic Usage
 
 Not finished yet!
 
