@@ -17,7 +17,7 @@ import disposable "github.com/bypepe77/disposable-mail-api-go/pkg"
 func main() {
   mail := disposable.NewDisposableMail()
   
-  createMail, err := mail.Generate("usertest1988999999", "1234")
+  createMail, err := mail.Generate("usertest", "1234")
   
   if err != nil {
 		fmt.Println(err)
