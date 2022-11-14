@@ -10,7 +10,7 @@ import (
 func main() {
 	mail := disposable.NewDisposableMail()
 
-	createdMail, err := mail.Generate("abc900000000", "1234")
+	createdMail, err := mail.Generate("azb1211212", "1234")
 
 	if err != nil {
 		fmt.Println(err)
@@ -26,6 +26,6 @@ func main() {
 		fmt.Println(err)
 	}
 
-	fmt.Println("Inbox", getInbox)
+	fmt.Println("Inbox", getInbox.Html)
 
 }

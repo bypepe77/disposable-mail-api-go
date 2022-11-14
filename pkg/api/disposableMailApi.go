@@ -65,8 +65,6 @@ func (d *DisposableMailAPI) GetMailIbox(mail, password string) (*models.Mail, er
 		return nil, err
 	}
 
-	fmt.Println("token:", token)
-
 	res, err := http.NewRequest("GET", d.api+"messages", nil)
 	res.Header.Set("Content-Type", "application/json")
 	res.Header.Set("Authorization", "Bearer "+token.Token)
@@ -84,15 +82,17 @@ func (d *DisposableMailAPI) GetMailIbox(mail, password string) (*models.Mail, er
 
 	defer body.Body.Close()
 
-	mailIbox := &models.Mail{}
+	mailInbox := &models.MailInbox{}
 
-	err = json.NewDecoder(body.Body).Decode(mailIbox)
+	err = json.NewDecoder(body.Body).Decode(mailInbox)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return mailIbox, nil
+	mailInfo, err := getMail(mailInbox, token, d.api)
+
+	return mailInfo, nil
 
 }
 
@@ -128,6 +128,42 @@ func (d *DisposableMailAPI) getMailToken(mail, password string) (*models.Token, 
 	}
 
 	return token, nil
+
+}
+
+func getMail(mailID *models.MailInbox, token *models.Token, api string) (*models.Mail, error) {
+	getID := mailID.Data[0].ID
+
+	if getID == "" {
+		return nil, fmt.Errorf("Error: %s", "Mail not found")
+	}
+
+	res, err := http.NewRequest("GET", api+"messages"+"/"+getID, nil)
+	res.Header.Set("Content-Type", "application/json")
+	res.Header.Set("Authorization", "Bearer "+token.Token)
+
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
+	body, err := client.Do(res)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer body.Body.Close()
+
+	mail := &models.Mail{}
+
+	err = json.NewDecoder(body.Body).Decode(mail)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return mail, nil
 
 }
 
