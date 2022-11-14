@@ -3,6 +3,7 @@ package disposable
 import (
 	"github.com/bypepe77/disposable-mail-api-go/pkg/api"
 	"github.com/bypepe77/disposable-mail-api-go/pkg/models"
+	"github.com/bypepe77/disposable-mail-api-go/pkg/utils"
 )
 
 type DisposableMail struct {
@@ -19,12 +20,16 @@ func (d *DisposableMail) Generate(mail, password string) (*models.Account, error
 	d.mail = mail
 
 	if mail == "" {
-	}
-
-	if password == "" {
+		randomString := utils.GenerareRandomString(10)
+		d.mail = randomString
 	}
 
 	d.password = password
+
+	if password == "" {
+		randomString := utils.GenerareRandomString(10)
+		d.password = randomString
+	}
 
 	createdMail, err := d.api.CreateMail(d.mail, d.password)
 

@@ -9,7 +9,7 @@ import (
 func main() {
 	mail := disposable.NewDisposableMail()
 
-	createdMail, err := mail.Generate("usertest1988999999", "1234")
+	createdMail, err := mail.Generate("", "")
 
 	if err != nil {
 		fmt.Println(err)
