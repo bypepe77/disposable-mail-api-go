@@ -77,25 +77,25 @@ func (d *DisposableMailAPI) getMailToken(mail, password string) (*models.Token, 
 		return nil, err
 	}
 
-	res, err := http.Post(d.api+"token`", "application/json", bytes.NewBuffer(data))
+	res, err := http.NewRequest("POST", d.api+"token", bytes.NewBuffer(data))
+	res.Header.Set("Content-Type", "application/json")
 
 	if err != nil {
 		return nil, err
 	}
 
-	body, err := ioutil.ReadAll(res.Body)
+	client := &http.Client{}
+	body, err := client.Do(res)
 
 	if err != nil {
 		return nil, err
 	}
 
-	if strings.Contains(string(body), "error") {
-		return nil, fmt.Errorf("Error: %s", string(body))
-	}
+	defer body.Body.Close()
 
 	token := &models.Token{}
 
-	err = json.Unmarshal([]byte(body), &token)
+	err = json.NewDecoder(body.Body).Decode(token)
 
 	if err != nil {
 		return nil, err
