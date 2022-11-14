@@ -26,14 +26,13 @@ func main() {
   fmt.Println(createdMail.ID) // Will return 63717dcb98af5a7c4e0ee0a5
   
   time.Sleep(5000 * time.Millisecond)
+  getInbox, err := mail.Mail()
 
-	 getInbox, err := mail.Mail()
-
-	 if err != nil {
-		  fmt.Println(err)
-	 }
-
-	 fmt.Println("Inbox", getInbox.Html) // Will return [<div dir="ltr">Test mail</div>]
+  if err != nil {
+     fmt.Println(err)
+  }
+  
+  fmt.Println("Inbox", getInbox.Html) // Will return [<div dir="ltr">Test mail</div>]
   
 }
 
