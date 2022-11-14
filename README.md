@@ -20,7 +20,7 @@ func main() {
   createMail, err := mail.Generate("usertest", "1234")
   
   if err != nil {
-		fmt.Println(err)
+     fmt.Println(err)
   }
   
   fmt.Println("ID", createdMail.ID)
