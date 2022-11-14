@@ -12,7 +12,3 @@ type Account struct {
 	CreatedAt  time.Time `json:"createdAt"`
 	CpdatedAt  time.Time `json:"updatedAt"`
 }
-
-type AccountResponse struct {
-	Account *Account `json:"account"`
-}
