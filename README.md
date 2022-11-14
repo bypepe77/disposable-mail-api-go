@@ -23,7 +23,7 @@ func main() {
      fmt.Println(err)
   }
   
-  fmt.Println("ID", createdMail.ID)
+  fmt.Println("ID", createdMail.ID) //63717dcb98af5a7c4e0ee0a5
 }
 
 ```
