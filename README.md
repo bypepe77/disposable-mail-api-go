@@ -21,7 +21,7 @@ func main() {
   
   if err != nil {
 		fmt.Println(err)
-	}
+  }
   
   fmt.Println("ID", createdMail.ID)
 }
