@@ -41,7 +41,7 @@ func (d *DisposableMail) Generate(mail, password string) (*models.Account, error
 }
 
 func (d *DisposableMail) Mail() (*models.Mail, error) {
-	email, err := d.api.GetMail(d.mail, d.password)
+	email, err := d.api.GetMailIbox(d.mail, d.password)
 
 	if err != nil {
 		return nil, err

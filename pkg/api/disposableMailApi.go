@@ -13,7 +13,7 @@ import (
 
 type DisposableMailAPInterface interface {
 	CreateMail(mail, password string) (*models.Account, error)
-	GetMail(mail, password string) (*models.Mail, error)
+	GetMailIbox(mail, password string) (*models.Mail, error)
 	getMailToken(mail, password string) (*models.Token, error)
 }
 
@@ -43,14 +43,6 @@ func (d *DisposableMailAPI) CreateMail(mail, password string) (*models.Account, 
 		return nil, err
 	}
 
-	token, err := d.getMailToken(mail, password)
-
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println("token:", token)
-
 	if strings.Contains(string(body), "error") {
 		return nil, fmt.Errorf("Error: %s", string(body))
 	}
@@ -66,8 +58,42 @@ func (d *DisposableMailAPI) CreateMail(mail, password string) (*models.Account, 
 	return account, nil
 }
 
-func (d *DisposableMailAPI) GetMail(mail, password string) (*models.Mail, error) {
-	return nil, nil
+func (d *DisposableMailAPI) GetMailIbox(mail, password string) (*models.Mail, error) {
+	token, err := d.getMailToken(mail, password)
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("token:", token)
+
+	res, err := http.NewRequest("GET", d.api+"messages", nil)
+	res.Header.Set("Content-Type", "application/json")
+	res.Header.Set("Authorization", "Bearer "+token.Token)
+
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
+	body, err := client.Do(res)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer body.Body.Close()
+
+	mailIbox := &models.Mail{}
+
+	err = json.NewDecoder(body.Body).Decode(mailIbox)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return mailIbox, nil
+
 }
 
 func (d *DisposableMailAPI) getMailToken(mail, password string) (*models.Token, error) {
