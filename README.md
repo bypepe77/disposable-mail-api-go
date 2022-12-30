@@ -1,6 +1,6 @@
 <div align="center">
  <h1>Disposable Mail Api for go</h1>
-    <span><strong>Disposable Mail Api</strong> It is a library to generate disposable mails for go and usable on internet.</span><br />
+    <span><strong>Disposable Mail Api</strong> It is a library to generate disposable mails for go!</span><br />
 </div>
 
 ## Installation
