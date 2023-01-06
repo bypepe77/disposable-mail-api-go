@@ -1,6 +1,6 @@
 <div align="center">
  <h1>Disposable Mail Api for go</h1>
-    <span><strong>Disposable Mail Api</strong> It is a library to generate disposable mails for go and usable on internet.</span><br />
+    <span><strong>Disposable Mail Api</strong> It is a library to generate disposable mails for Go.</span><br />
 </div>
 
 ## Installation
@@ -9,7 +9,7 @@ go get github.com/bypepe77/disposable-mail-api
 ```
 ### Basic Usage
 
-With a few lines we are able to generate a disposable email and obtain the data to be able to test it in our application.
+With a few lines we are able to generate a disposable email and obtain the data to test it in our application.
 
 ```go
 import disposable "github.com/bypepe77/disposable-mail-api/pkg"
