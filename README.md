@@ -5,14 +5,14 @@
 
 ## Installation
 ```bash
-go get github.com/itsrever/disposable-mail-api
+go get github.com/bypepe77/disposable-mail-api
 ```
 ### Basic Usage
 
 With a few lines we are able to generate a disposable email and obtain the data to be able to test it in our application.
 
 ```go
-import disposable "github.com/itsrever/disposable-mail-api/pkg"
+import disposable "github.com/bypepe77/disposable-mail-api/pkg"
 
 func main() {
   mail := disposable.NewDisposableMail()
