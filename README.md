@@ -22,7 +22,6 @@ func main() {
   
   // This will generate a random email and password  
   createMail, err := mail.Generate("", "")
-  
   if err != nil {
      fmt.Println(err)
   }
@@ -33,7 +32,6 @@ func main() {
   time.Sleep(5000 * time.Millisecond)
   
   getInbox, err := mail.Mail()
-
   if err != nil {
      fmt.Println(err)
   }
