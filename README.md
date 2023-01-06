@@ -136,7 +136,7 @@ getMailToken(mail, password string) (*models.Token, error)
 // getMail will return email data for a given email id provided by GetMailInbox
 getMail(mailID *models.MailInbox, token *models.Token, api string) (*models.Mail, error)
 
-// marshallData will return the data to send, this data will contain a mail with domain @karenkey.com and a password
+// marshallData will return the data to send
 marshallData(mail, password string) ([]byte, error) 
 ```
 
